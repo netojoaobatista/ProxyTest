@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Proxy Test</title>
+		<script src="js/ProxyTest.js"></script>
+		<script>
+		function Sample() {}
+
+		Sample.prototype.sum = function(a,b) {
+			return a*b;
+		};
+
+		Sample.prototype.name = function() {
+			return {
+				name: "Neto",
+				age: 30
+			};
+		};
+		
+		var obj = ProxyTest.create( new Sample() , {
+			testName: function( r ) {
+				this.assertObjectHasProperty( "name" , r , "Temos propriedade name!");
+			},
+			testSum: function( r , a , b ) {
+				this.assertEquals( r , a + b , "Soma está correta!");
+			}
+		} );
+
+		obj.name();
+		obj.sum(10,10);
+		</script>
+	</head>
+</html>
